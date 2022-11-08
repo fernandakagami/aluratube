@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { CSSReset } from "../src/components/CSSReset";
 import Menu from "../src/components/Menu";
 import { StyledTimeline } from "../src/components/Timeline";
-import { useRef } from "react";
 
 function HomePage() {
     const estilosDaHomePage = {
@@ -13,12 +12,14 @@ function HomePage() {
     return (
         <>
             <CSSReset />
-            <div style={estilosDaHomePage}>
+            <div style={estilosDaHomePage}>                
                 <Menu />
+                <Banner />
                 <Header />
                 <Timeline playlists={config.playlists}>
                     Conteúdo
-                </Timeline>
+                </Timeline>                
+                <Favorites favoritos={config.favoritos} />                    
             </div>
         </>
         
@@ -26,6 +27,22 @@ function HomePage() {
 }
 
 export default HomePage
+
+const StyledBanner = styled.div`
+    img {
+        margin-top: 50px;
+        width: 100%;
+        height: 350px;
+    }
+`;
+
+function Banner() {    
+    return (
+        <StyledBanner>
+            <img src={config.banner} />
+        </StyledBanner>        
+    )
+}
 
 const StyledHeader = styled.div`
     img {
@@ -35,7 +52,7 @@ const StyledHeader = styled.div`
     }
     .user-info {
         display: flex;
-        align-itens: center;
+        align-items: center;
         width: 100%;
         padding: 16px 32px;
         gap: 16px;
@@ -89,4 +106,42 @@ function Timeline(props) {
             })}
         </StyledTimeline>
     );
+}
+
+const StyledFavorites = styled.div`
+    h3 {
+        margin-left: 30px;
+    }
+    img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;        
+    }
+    .favorite-info {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding: 16px 32px;
+        gap: 16px;
+        text-align: center;
+    }
+`;
+
+function Favorites(props) {
+    const favoritosData = props.favoritos;    
+    return (
+        <StyledFavorites>
+            <h3>AluraTubes Favorites</h3>
+            <div className="favorite-info">
+                {favoritosData.map((favorito,index) => {
+                    return (
+                        <div key={index}>
+                            <img src={`https://github.com/${favorito.github}.png`} />
+                            <p>@{favorito.github}</p>                            
+                        </div>
+                    )                                
+                })}
+            </div>
+        </StyledFavorites>        
+    )   
 }
