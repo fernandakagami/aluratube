@@ -66,9 +66,7 @@ function Timeline(props) {
     return (
         <StyledTimeline>
             {playlistsNames.map((playlistName, index) => {                               
-                const videos = props.playlists[playlistName];
-                let cookies = useRef;
-                console.log(cookies.current); 
+                const videos = props.playlists[playlistName];                
                 return (
                     <section key={index}>
                         <h2>{playlistName}</h2>
